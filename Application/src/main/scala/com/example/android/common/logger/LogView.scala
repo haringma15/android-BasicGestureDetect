@@ -20,21 +20,9 @@ import android.content.Context
 import android.util._
 import android.widget.TextView
 
-class LogView extends TextView with LogNode {
-  def this(context: Context) {
-    this()
-    super (context)
-  }
-
-  def this(context: Context, attrs: AttributeSet) {
-    this()
-    super (context, attrs)
-  }
-
-  def this(context: Context, attrs: AttributeSet, defStyle: Int) {
-    this()
-    super (context, attrs, defStyle)
-  }
+class LogView (context: Context
+              , attrs: AttributeSet = null
+              , defStyle: Int = 0) extends TextView(context, attrs, defStyle) with LogNode {
 
   def println(priority: Int, tag: String, msg: String, tr: Throwable) {
     var priorityStr: String = null
@@ -63,11 +51,11 @@ class LogView extends TextView with LogNode {
     appendIfNotNull(outputBuilder, tag, delimiter)
     appendIfNotNull(outputBuilder, msg, delimiter)
     appendIfNotNull(outputBuilder, exceptionStr, delimiter)
-    (getContext.asInstanceOf[Activity]).runOnUiThread((new Thread(new Runnable() {
+    getContext.asInstanceOf[Activity].runOnUiThread(new Thread(new Runnable() {
       def run {
         appendToLog(outputBuilder.toString)
       }
-    })))
+    }))
     if (mNext != null) {
       mNext.println(priority, tag, msg, tr)
     }
@@ -84,7 +72,7 @@ class LogView extends TextView with LogNode {
   private def appendIfNotNull(source: StringBuilder, addStr: String, delimiter: String): StringBuilder = {
     if (addStr != null) {
       if (addStr.length == 0) {
-        delimiter = ""
+        val delimiter = ""
       }
       return source.append(addStr).append(delimiter)
     }

@@ -54,7 +54,6 @@ class MainActivity extends SampleActivityBase {
     logWrapper.setNext(msgFilter)
     val logFragment: LogFragment = getSupportFragmentManager.findFragmentById(R.id.log_fragment).asInstanceOf[LogFragment]
     msgFilter.setNext(logFragment.getLogView)
-    logFragment.getLogView.setTextAppearance(this, R.style.Log)
     logFragment.getLogView.setBackgroundColor(Color.WHITE)
     Log.i(MainActivity.TAG, "Ready")
   }

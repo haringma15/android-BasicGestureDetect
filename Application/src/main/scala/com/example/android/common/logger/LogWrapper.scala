@@ -15,8 +15,6 @@
  */
 package com.example.android.common.logger
 
-import android.util.Log
-
 class LogWrapper extends LogNode {
   private var mNext: LogNode = null
 
@@ -28,15 +26,16 @@ class LogWrapper extends LogNode {
     mNext = node
   }
 
-  def println(priority: Int, tag: String, msg: String, tr: Throwable) {
+  override def println(priority: Int, tag: String, msg: String, tr: Throwable) {
     var useMsg: String = msg
     if (useMsg == null) {
       useMsg = ""
     }
+
     if (tr != null) {
-      msg += "\n" + Log.getStackTraceString(tr)
+      msg +: ("\n" + android.util.Log.getStackTraceString(tr))
     }
-    Log.println(priority, tag, useMsg)
+    android.util.Log.println(priority, tag, useMsg)
     if (mNext != null) {
       mNext.println(priority, tag, msg, tr)
     }

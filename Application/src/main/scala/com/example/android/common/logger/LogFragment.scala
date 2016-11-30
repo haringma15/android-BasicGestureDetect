@@ -58,13 +58,12 @@ class LogFragment extends Fragment {
     mLogView.setTypeface(Typeface.MONOSPACE)
     val paddingDips: Int = 16
     val scale: Double = getResources.getDisplayMetrics.density
-    val paddingPixels: Int = ((paddingDips * (scale)) + .5).toInt
+    val paddingPixels: Int = ((paddingDips * scale) + .5).toInt
     mLogView.setPadding(paddingPixels, paddingPixels, paddingPixels, paddingPixels)
     mLogView.setCompoundDrawablePadding(paddingPixels)
     mLogView.setGravity(Gravity.BOTTOM)
-    mLogView.setTextAppearance(getActivity, android.R.style.TextAppearance_Holo_Medium)
     mScrollView.addView(mLogView)
-    return mScrollView
+    mScrollView
   }
 
   override def onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle): View = {
@@ -74,14 +73,16 @@ class LogFragment extends Fragment {
       }
 
       def onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-      } def afterTextChanged(s: Editable) {
-        mScrollView.fullScroll(ScrollView.FOCUS_DOWN)
+      }
+
+      def afterTextChanged(s: Editable) {
+        mScrollView.fullScroll(View.FOCUS_DOWN)
       }
     })
-    return result
+    result
   }
 
   def getLogView: LogView = {
-    return mLogView
+    mLogView
   }
 }
