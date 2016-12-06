@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentActivity
 import com.example.android.common.logger.Log
 import com.example.android.common.logger.LogWrapper
 
+//This file has problems getting committed.
 object SampleActivityBase {
   val TAG: String = "SampleActivityBase"
 }
